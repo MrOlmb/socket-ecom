@@ -68,9 +68,14 @@ server.all("*", (req, res) => {
   return handle(req, res);
 });
 
-// Start the server
-const PORT = process.env.PORT || 4000;
-httpServer.listen(PORT, (err) => {
-  if (err) throw err;
-  console.log(`Server is listening on port ${PORT}`);
+// Start the server only after Next.js is prepared
+app.prepare().then(() => {
+  const PORT = process.env.PORT || 4000;
+  httpServer.listen(PORT, (err) => {
+    if (err) throw err;
+    console.log(`Server is listening on port ${PORT}`);
+  });
+}).catch((ex) => {
+  console.error(ex.stack);
+  process.exit(1);
 });
