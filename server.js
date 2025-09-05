@@ -69,7 +69,8 @@ server.all("*", (req, res) => {
 });
 
 // Start the server
-httpServer.listen(4000, (err) => {
+const PORT = process.env.PORT || 4000;
+httpServer.listen(PORT, (err) => {
   if (err) throw err;
-  console.log("Server is listening on http://localhost:4000");
+  console.log(`Server is listening on port ${PORT}`);
 });
